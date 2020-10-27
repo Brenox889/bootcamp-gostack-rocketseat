@@ -67,7 +67,7 @@ app.delete('/projects/:id', validateProjectId, (request, response)=>{
   const projectIndex = projects.findIndex(project => project.id === id)
 
   if(projectIndex < 0){
-    return response.status(204).json({error:`The project with id ${id} does not exists`})
+    return response.status(400).json({error:`The project with id ${id} does not exists`})
   }
   projects.splice(projectIndex, 1)
 
