@@ -4,17 +4,25 @@ import api from './services/api'
 import Header from './components/Header'
 
 function App(){
-  const [projects, setProjects] = useState()
+  const [projects, setProjects] = useState([])
 
   useEffect(()=>{
     api.get('projects').then(response =>{
       setProjects(response.data)
     })
-  },[projects])
+  },[])
 
-  function handleProjects(){
+  async function handleProjects(){
     
-    setProjects([...projects, 'Novo Valor'])
+    // setProjects([...projects, 'Novo Valor'])
+
+    const response = await api.post('projects', {
+      title:`Novo projeto ${Date.now()}`,
+	    owner:"Breno Mendes"
+    })
+    const project = response.data
+
+    setProjects([...projects, project])
   }
   return(
     <>
